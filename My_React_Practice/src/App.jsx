@@ -16,8 +16,8 @@ function App() {
         <Routes>
           <Route path='/' element={""}></Route>
           <Route path='/signup' element={<Sign_Up/>}></Route>
-          <Route path='/shubham' element={<Protected Component={Shubham} />}></Route>
-          <Route path='/shyam' element={<Protected Component={Shyam} />}></Route>
+          <Route path='/shubham' element={<Shubham/>}></Route>
+          <Route path='shyam' element={<Protected Component={Shyam} />}></Route>
         </Routes>
       </BrowserRouter>
 

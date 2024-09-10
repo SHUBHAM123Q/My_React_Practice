@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import google from '../../aset/Google.png'
 import { Link, Outlet } from 'react-router-dom'
-
+import {auth,provider} from "./Config";
+import {signInWithPopup} from "firebase/auth"
+import Shubham from './Shubham';
 
 const Sign_Up = () => {
+
+    const [value,setValue] = useState('')
+    const handleClick = () =>{
+        signInWithPopup(auth,provider).then((data)=>{
+            setValue(data.user.email)
+            localStorage.setItem("email",data.user.email)
+        })
+    }
+
+    useEffect(()=>{
+        setValue(localStorage.getItem('email'))
+    })
     return (
         <>
             <div className='m-auto w-[500px] mt-28 bg-white-500'>
@@ -41,12 +55,12 @@ const Sign_Up = () => {
                     <p className='text-[#7c7c80] text-[14px] ms-1 font-bold'>I accepted all tearms & conditions.</p>
                 </div>
                 <Link to="/shubham">
-                    <button type='submit' className='flex justify-center items-center m-auto h-10 w-96 mt-5 text-[19px] bg-[#1b1c1e] text-white'>Sign in</button>
+                    {value?<Shubham/>:
+                    <button onClick={handleClick} type='submit' className='flex justify-center items-center m-auto h-10 w-96 mt-5 text-[19px] bg-[#1b1c1e] text-white'>Sign in</button>}
                 </Link>
                 <div className='mb-28 m-auto w-96 mt-3'>
                     <p className='text-center text-[#7c7c80] text-[17px]'>Already have an account? <span className='font-bold ms-1 text-[#58575c]'>Sign in</span></p>
                 </div>
-                <Outlet/>
             </div>
         </>
     )
